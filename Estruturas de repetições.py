@@ -51,22 +51,32 @@ print(cliente)
 
 for i in cliente:
     print(i)'''
+#.upper().strip() upper = tudo maiusculo/ strip = apagar espaços
 
-cliente = []
+produtos = []
+
+compras = int(input('Quantos produtos deseja cadastrar? '))
+contador = 0
 
 while True:
     try:
-        num = int(input('Digitr o Nº: '))
-        cliente.append(num)
-        sair = input('Deseja inserir mais um Nº?(S/N) ').upper().strip() #upper = tudo maiusculo/ strip = apagar espaços
-        if sair == 'N':
+        nome = input(f'Digite o nome do produto {contador+1}: ')
+        valor = float(input(f'Digite o valor do produto {contador+1}: '))
+        produtos.append((nome, valor))
+        contador +=1
+        if contador == compras:
             break
     except:
-        print('Digite um Nº Válido')
+        print('Digite um valor válido')
 
-print('1\n2\n3\n4')
+print('\nLista de produtos: ')
+for nome,valor in produtos:
+    print(f'{nome} -- R$ {produtos}')
 
-'''while True:
+
+'''print('1\n2\n3\n4')
+
+while True:
     try:
         opcao = int(input('opção: '))
         if opcao in [1,2,3,4]:
