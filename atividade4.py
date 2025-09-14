@@ -1,7 +1,7 @@
 avaliacao1 = float(input('Digite a nota da primeira avaliação: '))
 avaliacao2 = float(input('Digite a nota da segunda avaliação: '))
 
-avaliacao3 = None 
+
 
 while True:
     optativa = input('Você realizou a terceira avaliação?(sim/não) ')
