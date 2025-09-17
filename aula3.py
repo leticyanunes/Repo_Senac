@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 print('Bem vindo ao Konoha Hotel!!\n')
 print('Tipos de quartos disponiveis:')
 print('1- Quarto Gemin (R$ 120,00 por noite)')
@@ -54,7 +53,6 @@ print(f'Nome do hóspede: {nome}')
 print(f'Tipo de quarto: {nome_quarto}')
 print(f'Número de noites: {dias}')
 print(f'Preço total da estadia: {valor}')
-=======
 print('Bem vindo ao Konoha Hotel!!\n')
 print('Tipos de quartos disponiveis:')
 print('1- Quarto Gemin (R$ 120,00 por noite)')
@@ -110,4 +108,3 @@ print(f'Nome do hóspede: {nome}')
 print(f'Tipo de quarto: {nome_quarto}')
 print(f'Número de noites: {dias}')
 print(f'Preço total da estadia: {valor}')
->>>>>>> faf2174a18abc1e11710cb36085b28d22b69c742
