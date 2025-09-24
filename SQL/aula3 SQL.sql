@@ -75,6 +75,103 @@ FROM tb_vendas
 GROUP BY canal_venda 
 HAVING mais_200_por_canal > 200; 
 
-# SELECT 
+SELECT tb_clientes.estado, SUM(tb_vendas.quantidade) AS total_vendido
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+GROUP BY tb_clientes.estado;
 
-SELECT nome_produto, AVG(preco_unitario) AS superior_media 
+
+SELECT tb_produtos.nome_produto, SUM(tb_vendas.quantidade) AS total_vendido
+FROM tb_vendas
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_produtos.nome_produto
+HAVING total_vendido > 
+SELECT AVG(quantidade) FROM tb_vendas;
+
+
+SELECT tb_clientes.nome_cliente, COUNT(tb_vendas.id) AS total_compras
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+GROUP BY tb_clientes.nome_cliente
+HAVING total_compras > 5;
+
+SELECT tb_produtos.categoria, SUM(tb_vendas.quantidade) AS total_vendido
+FROM tb_vendas
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_produtos.categoria;
+
+# produtos que tiveram vendas apenas via e-commerce.
+
+SELECT tb_clientes.nome_cliente
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+WHERE tb_produtos.categoria = 'Smartphone'
+GROUP BY tb_clientes.nome_cliente;
+
+SELECT tb_produtos.nome_produto
+FROM tb_produtos
+LEFT JOIN tb_vendas ON tb_produtos.id = tb_vendas.id_produto
+WHERE tb_vendas.id IS NULL;
+
+
+SELECT tb_produtos.subcategoria, AVG(tb_vendas.quantidade) AS media_quantidade
+FROM tb_vendas
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_produtos.subcategoria;
+
+SELECT tb_clientes.estado, AVG(tb_vendas.quantidade) AS media_quantidade
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+GROUP BY tb_clientes.estado
+HAVING media_quantidade > 3;
+
+SELECT tb_clientes.id, tb_clientes.nome_cliente, 
+COUNT(tb_produtos.subcategoria) AS qtd_subcategorias
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_clientes.id, tb_clientes.nome_cliente
+HAVING qtd_subcategorias > 1;
+
+SELECT tb_produtos.id, tb_produtos.nome_produto, 
+COUNT(tb_vendas.id_cliente) AS qtd_clientes
+FROM tb_vendas
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_produtos.id, tb_produtos.nome_produto
+HAVING qtd_clientes > 10;
+
+# Canais de venda com vendas abaixo da média geral
+
+SELECT tb_produtos.id, tb_produtos.nome_produto
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+WHERE tb_clientes.estado = 'RJ'
+GROUP BY tb_produtos.id, tb_produtos.nome_produto;
+
+SELECT tb_clientes.id, tb_clientes.nome_cliente
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+WHERE tb_produtos.marca = 'Samsung'
+GROUP BY tb_clientes.id, tb_clientes.nome_cliente;
+
+## Produtos vendidos em todos os canais disponíveis
+
+SELECT tb_clientes.id, tb_clientes.nome_cliente, 
+COUNT(tb_vendas.id) AS qtd_compras
+FROM tb_vendas
+JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
+GROUP BY tb_clientes.id, tb_clientes.nome_cliente
+HAVING qtd_compras = 1;
+
+SELECT tb_produtos.id, tb_produtos.nome_produto, 
+AVG(tb_vendas.quantidade) AS media_quantidade
+FROM tb_vendas
+JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
+GROUP BY tb_produtos.id, tb_produtos.nome_produto
+HAVING media_quantidade > 2;
+
+
+
