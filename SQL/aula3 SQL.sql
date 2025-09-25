@@ -80,13 +80,7 @@ FROM tb_vendas
 JOIN tb_clientes ON tb_vendas.id_cliente = tb_clientes.id
 GROUP BY tb_clientes.estado;
 
-
-SELECT tb_produtos.nome_produto, SUM(tb_vendas.quantidade) AS total_vendido
-FROM tb_vendas
-JOIN tb_produtos ON tb_vendas.id_produto = tb_produtos.id
-GROUP BY tb_produtos.nome_produto
-HAVING total_vendido > 
-SELECT AVG(quantidade) FROM tb_vendas;
+# produtos que foram vendidos em quantidade superior à média geral.
 
 
 SELECT tb_clientes.nome_cliente, COUNT(tb_vendas.id) AS total_compras
